@@ -2,127 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>11 Phonemes Mastery | Kira's English</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
-        
-        body { 
-            margin: 0; 
-            padding: 0; 
-            background-color: #000; 
-            font-family: 'Montserrat', sans-serif; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-            color: white; 
-            overflow-x: hidden;
-        }
-
-        .action-card { 
-            background: #000; 
-            border-left: 6px solid #D30000; 
-            border-radius: 12px; 
-            padding: 25px; 
-            box-shadow: 0 15px 50px rgba(0,0,0,0.9); 
-            width: 92%; 
-            max-width: 900px; 
-            box-sizing: border-box; 
-            margin: 20px auto;
-        }
-
-        .section-header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: flex-end; 
-            margin-bottom: 20px; 
-        }
-
-        .header-title-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-bottom: 3px solid #D30000; 
-            padding-bottom: 10px;
-        }
-
-        .header-title-container span { 
-            color: #ffffff; 
-            font-size: 0.9rem; 
-            font-weight: 700; 
-            text-transform: uppercase; 
-        }
-
-        .logo-bracket {
-            width: 42px; 
-            height: 42px;
-            background: #000;
-            border-left: 4px solid #D30000;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-left: 5px;
-        }
-
-        .logo-bracket img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; }
-
-        #counter { font-size: 0.9rem; font-weight: 700; padding-bottom: 10px; color: #D30000; white-space: nowrap; margin-left: 15px;}
-
-        .progress-container { width: 100%; background: #222; height: 8px; border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
+        body { margin: 0; padding: 0; background-color: #000; font-family: 'Montserrat', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: white; }
+        .action-card { background: #000; border-left: 8px solid #D30000; border-radius: 12px; padding: 40px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); width: 95%; max-width: 900px; box-sizing: border-box; }
+        .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px; }
+        .header-title-container { display: flex; align-items: center; gap: 15px; border-bottom: 3px solid #D30000; padding-bottom: 12px; }
+        .header-title-container span { color: #ffffff; font-size: 1.1rem; font-weight: 700; text-transform: uppercase; }
+        .logo-bracket { width: 50px; height: 50px; background: #000; border-left: 4px solid #D30000; border-radius: 6px; display: flex; align-items: center; justify-content: center; padding-left: 6px; }
+        .logo-bracket img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+        #counter { font-size: 1.1rem; font-weight: 700; padding-bottom: 12px; color: #D30000; white-space: nowrap; margin-left: 20px;}
+        .progress-container { width: 100%; background: #222; height: 10px; border-radius: 5px; margin-bottom: 25px; overflow: hidden; }
         .progress-bar { height: 100%; background: #D30000; width: 0%; transition: width 0.4s ease; }
+        .exercise-block { background: #111; padding: 30px; border-radius: 15px; border: 1px solid #222; text-align: center; }
         
-        .exercise-block { background: #111; padding: 25px; border-radius: 20px; border: 1px solid #222; text-align: center; }
+        /* Ajuste de word-display para igualar el tamaño visual del grid del templo */
+        .word-display { background: #1a1a1a; padding: 30px 15px; border-radius: 12px; border: 3px solid #333; transition: 0.2s; margin-bottom: 25px; }
+        .word-display.active { border-color: #00FF00; background: #0a250a; transform: scale(1.05); }
         
-        .word-display { 
-            background: #1a1a1a; 
-            padding: 40px 15px; 
-            border-radius: 15px; 
-            border: 3px solid #333; 
-            margin-bottom: 25px; 
-            transition: 0.3s; 
-        }
-        .word-display.active { border-color: #00FF00; background: #0a250a; }
-
-        /* Ajuste de tamaño de fuente para móvil */
-        .word-text { font-size: 2.8rem; font-weight: 700; display: block; margin-bottom: 8px; letter-spacing: 1px; }
-        .ipa-text { color: #D30000; font-size: 1.3rem; font-weight: 700; display: block; }
-        .category-label { color: #666; text-transform: uppercase; font-size: 0.7rem; margin-bottom: 12px; display: block; letter-spacing: 1px; }
-
-        button { 
-            width: 100%; 
-            max-width: 100%; 
-            padding: 18px; 
-            border-radius: 12px; 
-            font-weight: 700; 
-            cursor: pointer; 
-            text-transform: uppercase; 
-            font-family: 'Montserrat', sans-serif; 
-            font-size: 1.1rem; 
-            margin: 8px auto; 
-            border: none; 
-            transition: 0.2s; 
-            display: block;
-            -webkit-tap-highlight-color: transparent;
-        }
+        .word-text, .ipa-text { font-size: 2.2rem; font-weight: 700; display: block; margin-bottom: 8px; }
+        .ipa-text { color: #D30000; }
+        .category-label { color: #888; text-transform: uppercase; font-size: 0.9rem; font-weight: 700; margin-bottom: 12px; display: block; letter-spacing: 1px; }
         
-        .btn-speak { background: #D30000; color: white; box-shadow: 0 6px 20px rgba(211, 0, 0, 0.3); }
+        button { width: 100%; max-width: 400px; padding: 20px; border-radius: 10px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-size: 1.1rem; margin: 10px auto; border: none; transition: 0.2s; display: block; }
+        .btn-speak { background: #D30000; color: white; box-shadow: 0 4px 15px rgba(211, 0, 0, 0.3); }
         .btn-next { background: #00FF00; color: #000; margin-top: 15px; }
-        .btn-skip { background: transparent; color: #666; border: 1px solid #333; font-size: 0.85rem; margin-top: 5px; }
-        
-        #feedback { margin-top: 15px; min-height: 40px; font-size: 1rem; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; justify-content: center; text-align: center; }
-        
+        .btn-skip { background: transparent; color: #555; border: 1px solid #222; font-size: 0.8rem; }
+        #feedback { margin-top: 15px; min-height: 45px; font-size: 1.1rem; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; justify-content: center; text-align: center; }
         @keyframes pulse-red { 0% { box-shadow: 0 0 0px 0px rgba(211, 0, 0, 0.7); } 70% { box-shadow: 0 0 0px 20px rgba(211, 0, 0, 0); } 100% { box-shadow: 0 0 0px 0px rgba(211, 0, 0, 0); } }
         .listening-active { animation: pulse-red 1.5s infinite; background-color: #ff0000 !important; }
         .hidden { display: none; }
-
-        /* Media Query para pantallas muy pequeñas */
-        @media (max-width: 400px) {
-            .word-text { font-size: 2.2rem; }
-            .action-card { padding: 15px; }
-            .exercise-block { padding: 15px; }
-        }
+        
+        @media (max-width: 600px) { .word-text, .ipa-text { font-size: 1.5rem; } .logo-bracket { width: 35px; height: 35px; } .logo-bracket img { width: 30px; height: 30px; } #counter { margin-left: 10px; font-size: 0.9rem; } .category-label { font-size: 0.8rem; } }
     </style>
 </head>
 <body>
@@ -189,7 +102,7 @@
         try { rec.start(); } catch(e) {}
         const micBtn = document.getElementById('mic');
         micBtn.classList.add('listening-active');
-        micBtn.innerText = "Escuchando...";
+        micBtn.innerText = "Escuchando... 🎤";
     }
 
     rec.onresult = (e) => {
@@ -198,11 +111,11 @@
         const fb = document.getElementById('feedback');
         if (heard.includes(target)) {
             document.getElementById('display-box').classList.add('active');
-            fb.innerHTML = `<span style="color:#00FF00">OK! ✅</span>`;
+            fb.innerHTML = `<span style="color:#00FF00">¡LOGRADO! ✅</span>`;
             document.getElementById('next').classList.remove('hidden');
             document.getElementById('skip').classList.add('hidden');
         } else {
-            fb.innerHTML = `<span style="color:#D30000">Entendí: "${heard}"</span>`;
+            fb.innerHTML = `<span style="color:#D30000">"${heard}"?</span>`;
         }
     };
 
@@ -215,7 +128,7 @@
     function go() {
         idx++;
         if (idx < data.length) updateCard();
-        else document.getElementById('quiz-area').innerHTML = `<h2 style="color:#00FF00">¡COMPLETADO!</h2><button onclick="location.reload()">REINICIAR</button>`;
+        else document.getElementById('quiz-area').innerHTML = `<h2 style="color:#00FF00">¡RETO COMPLETADO!</h2><button onclick="location.reload()">REINICIAR</button>`;
     }
 
     updateCard();
