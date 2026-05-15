@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>11 Phonemes Mastery | Kira's English</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+        
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: #000; 
+            font-family: 'Montserrat', sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            color: white; 
+            overflow-x: hidden;
+        }
+
+        .action-card { 
+            background: #000; 
+            border-left: 6px solid #D30000; 
+            border-radius: 12px; 
+            padding: 25px; 
+            box-shadow: 0 15px 50px rgba(0,0,0,0.9); 
+            width: 92%; 
+            max-width: 900px; 
+            box-sizing: border-box; 
+            margin: 20px auto;
+        }
+
+        .section-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-end; 
+            margin-bottom: 20px; 
+        }
+
+        .header-title-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 3px solid #D30000; 
+            padding-bottom: 10px;
+        }
+
+        .header-title-container span { 
+            color: #ffffff; 
+            font-size: 0.9rem; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+        }
+
+        .logo-bracket {
+            width: 42px; 
+            height: 42px;
+            background: #000;
+            border-left: 4px solid #D30000;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-left: 5px;
+        }
+
+        .logo-bracket img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; }
+
+        #counter { font-size: 0.9rem; font-weight: 700; padding-bottom: 10px; color: #D30000; white-space: nowrap; margin-left: 15px;}
+
+        .progress-container { width: 100%; background: #222; height: 8px; border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
+        .progress-bar { height: 100%; background: #D30000; width: 0%; transition: width 0.4s ease; }
+        
+        .exercise-block { background: #111; padding: 25px; border-radius: 20px; border: 1px solid #222; text-align: center; }
+        
+        .word-display { 
+            background: #1a1a1a; 
+            padding: 40px 15px; 
+            border-radius: 15px; 
+            border: 3px solid #333; 
+            margin-bottom: 25px; 
+            transition: 0.3s; 
+        }
+        .word-display.active { border-color: #00FF00; background: #0a250a; }
+
+        /* Ajuste de tamaño de fuente para móvil */
+        .word-text { font-size: 2.8rem; font-weight: 700; display: block; margin-bottom: 8px; letter-spacing: 1px; }
+        .ipa-text { color: #D30000; font-size: 1.3rem; font-weight: 700; display: block; }
+        .category-label { color: #666; text-transform: uppercase; font-size: 0.7rem; margin-bottom: 12px; display: block; letter-spacing: 1px; }
+
+        button { 
+            width: 100%; 
+            max-width: 100%; 
+            padding: 18px; 
+            border-radius: 12px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 1.1rem; 
+            margin: 8px auto; 
+            border: none; 
+            transition: 0.2s; 
+            display: block;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .btn-speak { background: #D30000; color: white; box-shadow: 0 6px 20px rgba(211, 0, 0, 0.3); }
+        .btn-next { background: #00FF00; color: #000; margin-top: 15px; }
+        .btn-skip { background: transparent; color: #666; border: 1px solid #333; font-size: 0.85rem; margin-top: 5px; }
+        
+        #feedback { margin-top: 15px; min-height: 40px; font-size: 1rem; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; justify-content: center; text-align: center; }
+        
+        @keyframes pulse-red { 0% { box-shadow: 0 0 0px 0px rgba(211, 0, 0, 0.7); } 70% { box-shadow: 0 0 0px 20px rgba(211, 0, 0, 0); } 100% { box-shadow: 0 0 0px 0px rgba(211, 0, 0, 0); } }
+        .listening-active { animation: pulse-red 1.5s infinite; background-color: #ff0000 !important; }
+        .hidden { display: none; }
+
+        /* Media Query para pantallas muy pequeñas */
+        @media (max-width: 400px) {
+            .word-text { font-size: 2.2rem; }
+            .action-card { padding: 15px; }
+            .exercise-block { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="action-card">
+    <div class="section-header">
+        <div class="header-title-container">
+            <div class="logo-bracket"><img src="https://drive.google.com/thumbnail?id=1DQWHMZf7MpnzZBa3CbqqyJGLQEK6U4lZ" alt="Kira"></div>
+            <span>Phoneme Training</span>
+        </div>
+        <span id="counter">1 / 55</span>
+    </div>
+    <div class="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
+    <div id="quiz-area">
+        <div class="exercise-block">
+            <div class="word-display" id="display-box">
+                <span class="category-label" id="cat-label">TOPIC</span>
+                <span class="word-text" id="word-target">Word</span>
+                <span class="ipa-text" id="ipa-target">/ipa/</span>
+            </div>
+            <button class="btn-speak" id="mic" onclick="start()">Hablar 🎤</button>
+            <div id="feedback">Listo.</div>
+            <button id="next" class="btn-next hidden" onclick="go()">Siguiente ➔</button>
+            <button id="skip" class="btn-skip" onclick="go()">Saltar Palabra</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const data = [
+        /* 1. /v/ */ { w: "Van", i: "/væn/", c: "Fonema /v/", t: "van" }, { w: "Vest", i: "/vest/", c: "Fonema /v/", t: "vest" }, { w: "Vote", i: "/voʊt/", c: "Fonema /v/", t: "vote" }, { w: "Vase", i: "/veɪs/", c: "Fonema /v/", t: "vase" }, { w: "Cave", i: "/keɪv/", c: "Fonema /v/ (final)", t: "cave" },
+        /* 2. /ð/ */ { w: "They", i: "/ðeɪ/", c: "Fonema /ð/", t: "they" }, { w: "Then", i: "/ðen/", c: "Fonema /ð/", t: "then" }, { w: "There", i: "/ðer/", c: "Fonema /ð/", t: "there" }, { w: "Breathe", i: "/briːð/", c: "Fonema /ð/ (final)", t: "breathe" }, { w: "Smooth", i: "/smuːð/", c: "Fonema /ð/ (final)", t: "smooth" },
+        /* 3. /z/ */ { w: "Zip", i: "/zɪp/", c: "Fonema /z/", t: "zip" }, { w: "Zoo", i: "/zuː/", c: "Fonema /z/", t: "zoo" }, { w: "Buzz", i: "/bʌz/", c: "Fonema /z/ (final)", t: "buzz" }, { w: "Eyes", i: "/aɪz/", c: "Fonema /z/ (final)", t: "eyes" }, { w: "Phase", i: "/feɪz/", c: "Fonema /z/ (final)", t: "phase" },
+        /* 4. /dʒ/ */ { w: "Jet", i: "/dʒet/", c: "Fonema /dʒ/", t: "jet" }, { w: "Job", i: "/dʒɑːb/", c: "Fonema /dʒ/", t: "job" }, { w: "Juice", i: "/dʒuːs/", c: "Fonema /dʒ/", t: "juice" }, { w: "Page", i: "/peɪdʒ/", c: "Fonema /dʒ/ (final)", t: "page" }, { w: "Bridge", i: "/brɪdʒ/", c: "Fonema /dʒ/ (final)", t: "bridge" },
+        /* 5. /ʒ/ */ { w: "Vision", i: "/ˈvɪʒ.ən/", c: "Fonema /ʒ/", t: "vision" }, { w: "Measure", i: "/ˈmeʒ.ɚ/", c: "Fonema /ʒ/", t: "measure" }, { w: "Pleasure", i: "/ˈpleʒ.ɚ/", c: "Fonema /ʒ/", t: "pleasure" }, { w: "Casual", i: "/ˈkæʒ.u.əl/", c: "Fonema /ʒ/", t: "casual" }, { w: "Beige", i: "/beɪʒ/", c: "Fonema /ʒ/ (final)", t: "beige" },
+        /* 6. /ŋ/ */ { w: "Sing", i: "/sɪŋ/", c: "Fonema /ŋ/", t: "sing" }, { w: "King", i: "/kɪŋ/", c: "Fonema /ŋ/", t: "king" }, { w: "Long", i: "/lɔːŋ/", c: "Fonema /ŋ/", t: "long" }, { w: "Wing", i: "/wɪŋ/", c: "Fonema /ŋ/", t: "wing" }, { w: "Song", i: "/sɔːŋ/", c: "Fonema /ŋ/", t: "song" },
+        /* 7. /m/ */ { w: "Dam", i: "/dæm/", c: "Fonema /m/ (final)", t: "dam" }, { w: "Team", i: "/tiːm/", c: "Fonema /m/ (final)", t: "team" }, { w: "Gum", i: "/ɡʌm/", c: "Fonema /m/ (final)", t: "gum" }, { w: "Beam", i: "/biːm/", c: "Fonema /m/ (final)", t: "beam" }, { w: "Room", i: "/ruːm/", c: "Fonema /m/ (final)", t: "room" },
+        /* 8. /t/ */ { w: "Mat", i: "/mæt/", c: "Fonema /t/ (final)", t: "mat" }, { w: "Bat", i: "/bæt/", c: "Fonema /t/ (final)", t: "bat" }, { w: "Last", i: "/læst/", c: "Fonema /t/ (st closure)", t: "last" }, { w: "Best", i: "/best/", c: "Fonema /t/ (st closure)", t: "best" }, { w: "Write", i: "/raɪt/", c: "Fonema /t/ (final)", t: "write" },
+        /* 9. /d/ */ { w: "Mad", i: "/mæd/", c: "Fonema /d/ (final)", t: "mad" }, { w: "Bad", i: "/bæd/", c: "Fonema /d/ (final)", t: "bad" }, { w: "Hand", i: "/hænd/", c: "Fonema /d/ (nd closure)", t: "hand" }, { w: "Mind", i: "/maɪnd/", c: "Fonema /d/ (nd closure)", t: "mind" }, { w: "Ride", i: "/raɪd/", c: "Fonema /d/ (final)", t: "ride" },
+        /* 10. /θ/ */ { w: "Thin", i: "/θɪn/", c: "Fonema /θ/", t: "thin" }, { w: "Think", i: "/θɪŋk/", c: "Fonema /θ/", t: "think" }, { w: "Path", i: "/pæθ/", c: "Fonema /θ/ (final)", t: "path" }, { w: "Math", i: "/mæθ/", c: "Fonema /θ/ (final)", t: "math" }, { w: "Death", i: "/deθ/", c: "Fonema /θ/ (final)", t: "death" },
+        /* 11. /ʃ/ */ { w: "Ship", i: "/ʃɪp/", c: "Fonema /ʃ/", t: "ship" }, { w: "Shop", i: "/ʃɑːp/", c: "Fonema /ʃ/", t: "shop" }, { w: "Cash", i: "/kæʃ/", c: "Fonema /ʃ/ (final)", t: "cash" }, { w: "Wash", i: "/wɑːʃ/", c: "Fonema /ʃ/ (final)", t: "wash" }, { w: "Fish", i: "/fɪʃ/", c: "Fonema /ʃ/ (final)", t: "fish" }
+    ];
+
+    let idx = 0;
+    const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const rec = Recognition ? new Recognition() : null;
+    if(rec) { rec.lang = 'en-US'; rec.continuous = false; }
+
+    function updateCard() {
+        const item = data[idx];
+        document.getElementById('word-target').innerText = item.w;
+        document.getElementById('ipa-target').innerText = item.i;
+        document.getElementById('cat-label').innerText = item.c;
+        document.getElementById('display-box').classList.remove('active');
+        document.getElementById('counter').innerText = `${idx + 1} / ${data.length}`;
+        document.getElementById('progress-bar').style.width = `${((idx + 1) / data.length) * 100}%`;
+        document.getElementById('next').classList.add('hidden');
+        document.getElementById('skip').classList.remove('hidden');
+        document.getElementById('feedback').innerText = "Listo.";
+    }
+
+    function start() {
+        if (!rec) return alert("Micro no compatible.");
+        try { rec.start(); } catch(e) {}
+        const micBtn = document.getElementById('mic');
+        micBtn.classList.add('listening-active');
+        micBtn.innerText = "Escuchando...";
+    }
+
+    rec.onresult = (e) => {
+        const heard = e.results[0][0].transcript.toLowerCase().trim();
+        const target = data[idx].t;
+        const fb = document.getElementById('feedback');
+        if (heard.includes(target)) {
+            document.getElementById('display-box').classList.add('active');
+            fb.innerHTML = `<span style="color:#00FF00">OK! ✅</span>`;
+            document.getElementById('next').classList.remove('hidden');
+            document.getElementById('skip').classList.add('hidden');
+        } else {
+            fb.innerHTML = `<span style="color:#D30000">Entendí: "${heard}"</span>`;
+        }
+    };
+
+    rec.onend = () => {
+        const micBtn = document.getElementById('mic');
+        micBtn.classList.remove('listening-active');
+        micBtn.innerText = "Hablar 🎤";
+    };
+
+    function go() {
+        idx++;
+        if (idx < data.length) updateCard();
+        else document.getElementById('quiz-area').innerHTML = `<h2 style="color:#00FF00">¡COMPLETADO!</h2><button onclick="location.reload()">REINICIAR</button>`;
+    }
+
+    updateCard();
+</script>
+</body>
+</html>
